@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 2 Foundation IGCSE Practice Hub (Math, Science, English)</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka', cursive, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background: white !important;
+            }
+            .question-card {
+                break-inside: avoid;
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+                margin-bottom: 1rem;
+            }
+            .tab-content {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-700 min-h-screen pb-20">
+    <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-xl py-8 px-4 mb-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="bg-amber-300 text-amber-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3 shadow-sm">IGCSE Foundation Level • Age 7 (Year 2)</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-wide">🚀 Junior Scholar Practice Hub 🚀</h1>
+            <p class="text-indigo-100 text-base md:text-lg max-w-2xl mx-auto">
+                Explore 150 fun challenges across Mathematics, Science, and English to build core foundational skills!
+            </p>
+            <div class="mt-6 flex flex-wrap justify-center gap-4 no-print">
+                <button onclick="window.print()" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold px-6 py-2.5 rounded-full shadow-md transition transform hover:scale-105 flex items-center gap-2">
+                    🖨️ Print Active Tab / Save PDF
+                </button>
+                <button onclick="resetCurrentTab()" class="bg-rose-500 hover:bg-rose-600 text-white font-bold px-6 py-2.5 rounded-full shadow-md transition transform hover:scale-105">
+                    🔄 Reset Active Tab
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="max-w-5xl mx-auto px-4 mb-8 no-print">
+        <div class="flex flex-wrap justify-center gap-3 bg-white p-3 rounded-2xl shadow-lg border-2 border-indigo-100">
+            <button onclick="switchTab('math')" id="tab-btn-math" class="tab-btn flex-1 min-w-[140px] py-3 px-6 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md">
+                📐 Mathematics (50)
+            </button>
+            <button onclick="switchTab('science')" id="tab-btn-science" class="tab-btn flex-1 min-w-[140px] py-3 px-6 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                🔬 Science (50)
+            </button>
+            <button onclick="switchTab('english')" id="tab-btn-english" class="tab-btn flex-1 min-w-[140px] py-3 px-6 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                📚 English (50)
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4">
+        <!-- Sticky Scoreboard Banner -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-8 border-4 border-indigo-100 sticky top-4 z-20 backdrop-blur-md bg-white/95">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 id="active-tab-title" class="text-xl font-bold text-slate-800">Mathematics Dashboard</h2>
+                    <p class="text-sm text-slate-500">Answer the questions below and click grade when ready!</p>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="text-center">
+                        <span class="block text-2xl md:text-3xl font-extrabold text-indigo-600" id="score-display">0 / 50</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Correct Score</span>
+                    </div>
+                    <button onclick="gradeActiveTab()" class="no-print bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105">
+                        ✨ Grade Tab
+                    </button>
+                </div>
+            </div>
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-100 rounded-full h-3 mt-4 overflow-hidden">
+                <div id="progress-bar" class="bg-indigo-600 h-3 transition-all duration-300 w-0"></div>
+            </div>
+        </div>
+
+        <!-- Tab Content Containers -->
+        <div id="tab-content-math" class="tab-content space-y-6">
+            <!-- Math questions injected here -->
+        </div>
+
+        <div id="tab-content-science" class="tab-content space-y-6 hidden">
+            <!-- Science questions injected here -->
+        </div>
+
+        <div id="tab-content-english" class="tab-content space-y-6 hidden">
+            <!-- English questions injected here -->
+        </div>
+
+        <!-- Bottom Actions -->
+        <div class="mt-12 text-center no-print">
+            <button onclick="gradeActiveTab(); window.scrollTo({top:0, behavior:'smooth'});" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xl px-10 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:scale-105">
+                🏆 Submit & Check Active Tab Results!
+            </button>
+        </div>
+    </main>
+
+    <script>
+        let currentActiveTab = 'math';
+
+        // 50 Math Questions (Year 2 Foundation)
+        const mathQuestions = [
+            { id: 1, topic: "Place Value", q: "What is the number shown by 3 tens and 7 ones?", options: ["37", "73", "307", "370"], answer: "37", hint: "Put 3 in the tens column and 7 in the ones column." },
+            { id: 2, topic: "Place Value", q: "Which number is the largest: 42, 24, 49, 39?", options: ["42", "24", "49", "39"], answer: "49", hint: "Look at the tens digit first." },
+            { id: 3, topic: "Place Value", q: "What is 10 more than 54?", options: ["44", "64", "55", "74"], answer: "64", hint: "Add 1 to the tens place digit." },
+            { id: 4, topic: "Place Value", q: "What is 10 less than 82?", options: ["72", "92", "81", "62"], answer: "72", hint: "Subtract 1 from the tens place digit." },
+            { id: 5, topic: "Place Value", q: "How many tens are in the number 70?", options: ["7", "70", "10", "77"], answer: "7", hint: "Count by tens: 10, 20, 30, 40, 50, 60, 70." },
+            { id: 6, topic: "Sequences", q: "Fill in the missing number: 5, 10, 15, __, 25", options: ["18", "20", "22", "30"], answer: "20", hint: "Count forward in steps of 5." },
+            { id: 7, topic: "Place Value", q: "Which number comes directly before 60?", options: ["58", "59", "61", "50"], answer: "59", hint: "Count backwards by 1 from 60." },
+            { id: 8, topic: "Place Value", q: "What is the value of the digit 8 in the number 85?", options: ["8", "80", "5", "58"], answer: "80", hint: "The 8 is in the tens column." },
+            { id: 9, topic: "Ordering", q: "Order from smallest to largest: 34, 19, 43, 22", options: ["19, 22, 34, 43", "34, 19, 43, 22", "43, 34, 22, 19", "22, 19, 43, 34"], answer: "19, 22, 34, 43", hint: "Find the smallest number first." },
+            { id: 10, topic: "Number Names", q: "Write the number thirty-six in digits.", options: ["63", "36", "306", "136"], answer: "36", hint: "Thirty means 30, six means 6." },
+            { id: 11, topic: "Number Bonds", q: "What is missing: 47 = 40 + __?", options: ["7", "40", "47", "10"], answer: "7", hint: "Partition 47 into tens and ones." },
+            { id: 12, topic: "Comparisons", q: "Which sign makes this correct? 38 __ 83", options: [">", "<", "="], answer: "<", hint: "The alligator eats the bigger number." },
+            { id: 13, topic: "Sequences", q: "Count backwards by 10s: 92, 82, 72, __", options: ["62", "81", "52", "71"], answer: "62", hint: "Subtract 10 from 72." },
+            { id: 14, topic: "Halfway", q: "What number is halfway between 20 and 30?", options: ["24", "25", "26", "15"], answer: "25", hint: "Think of the middle number on a number line." },
+            { id: 15, topic: "Odd & Even", q: "Which of these numbers is even?", options: ["33", "45", "46", "51"], answer: "46", hint: "Even numbers end in 0, 2, 4, 6, or 8." },
+            { id: 16, topic: "Addition", q: "What is 35 + 24?", options: ["59", "58", "61", "56"], answer: "59", hint: "Add ones (5+4) and tens (30+20)." },
+            { id: 17, topic: "Subtraction", q: "What is 68 - 23?", options: ["45", "55", "41", "35"], answer: "45", hint: "Subtract ones (8-3) and tens (60-20)." },
+            { id: 18, topic: "Addition", q: "What number added to 7 gives 15?", options: ["6", "7", "8", "9"], answer: "8", hint: "Count up from 7 to 15." },
+            { id: 19, topic: "Word Problems", q: "If you have 54 sweets and eat 12, how many do you have left?", options: ["42", "66", "44", "38"], answer: "42", hint: "Take away 12 from 54." },
+            { id: 20, topic: "Doubles", q: "What is double 14?", options: ["24", "28", "30", "26"], answer: "28", hint: "Add 14 + 14." },
+            { id: 21, topic: "Halves", q: "What is half of 20?", options: ["5", "10", "15", "40"], answer: "10", hint: "Split 20 into two equal parts." },
+            { id: 22, topic: "Addition", q: "Find the sum of 16, 14, and 10.", options: ["30", "35", "40", "42"], answer: "40", hint: "First add 16 + 14, then add 10." },
+            { id: 23, topic: "Subtraction", q: "What is 90 - 45?", options: ["45", "55", "35", "50"], answer: "45", hint: "Half of 90 is 45." },
+            { id: 24, topic: "Word Problems", q: "Sam has 28 marbles and gives 15 away. How many does he keep?", options: ["13", "15", "14", "12"], answer: "13", hint: "Subtract 15 from 28." },
+            { id: 25, topic: "Missing Numbers", q: "What is the missing number: 31 + ___ = 50?", options: ["19", "21", "29", "11"], answer: "19", hint: "Count up from 31 to 50." },
+            { id: 26, topic: "Multiplication", q: "What is 4 × 5?", options: ["15", "20", "25", "9"], answer: "20", hint: "Count by 5s four times." },
+            { id: 27, topic: "Multiplication", q: "What is 3 × 10?", options: ["13", "20", "30", "33"], answer: "30", hint: "Count by 10s three times." },
+            { id: 28, topic: "Multiplication", q: "What is 2 × 7?", options: ["12", "14", "16", "9"], answer: "14", hint: "Double 7." },
+            { id: 29, topic: "Division", q: "If you share 12 cookies equally among 2 children, how many does each child get?", options: ["5", "6", "7", "4"], answer: "6", hint: "Half of 12." },
+            { id: 30, topic: "Division", q: "What is 20 ÷ 5?", options: ["4", "5", "10", "15"], answer: "4", hint: "How many 5s make 20?" },
+            { id: 31, topic: "Word Problems", q: "There are 5 cars. Each car has 4 wheels. How many wheels in total?", options: ["15", "20", "25", "9"], answer: "20", hint: "Multiply 5 by 4." },
+            { id: 32, topic: "Halves", q: "What is half of 18?", options: ["8", "9", "10", "6"], answer: "9", hint: "9 + 9 = 18." },
+            { id: 33, topic: "Multiplication", q: "What is 0 × 8?", options: ["0", "8", "1", "80"], answer: "0", hint: "Anything multiplied by zero is zero." },
+            { id: 34, topic: "Word Problems", q: "A baker puts 10 buns on a tray and has 3 trays. How many buns altogether?", options: ["13", "20", "30", "33"], answer: "30", hint: "3 groups of 10." },
+            { id: 35, topic: "Division", q: "What is 15 ÷ 5?", options: ["3", "5", "10", "50"], answer: "3", hint: "Count by 5s until 15." },
+            { id: 36, topic: "Measurement", q: "Which unit is best for measuring the length of a classroom?", options: ["Centimetres", "Metres", "Millimetres", "Kilograms"], answer: "Metres", hint: "Rooms are very long." },
+            { id: 37, topic: "Measurement", q: "How many centimeters are in 1 metre?", options: ["10", "100", "1000", "50"], answer: "100 centimetres", hint: "Centi means 100." },
+            { id: 38, topic: "Time", q: "What time is it when the big hand is on 12 and the small hand is on 3?", options: ["12 o'clock", "3 o'clock", "Half past 3", "9 o'clock"], answer: "3 o'clock", hint: "The short hand shows the hour." },
+            { id: 39, topic: "Time", q: "How many minutes are in one hour?", options: ["30 minutes", "60 minutes", "100 minutes", "12 minutes"], answer: "60 minutes", hint: "A full clock rotation." },
+            { id: 40, topic: "Capacity", q: "Which container holds the most water?", options: ["A teaspoon", "A cup", "A bathtub", "A mug"], answer: "A bathtub", hint: "Think of bath time." },
+            { id: 41, topic: "Mass", q: "What is 3 pounds plus 2 pounds in weight?", options: ["1 pound", "5 pounds", "6 pounds", "23 pounds"], answer: "5 pounds", hint: "Add 3 and 2." },
+            { id: 42, topic: "Measurement", q: "If a pencil is 12 cm and a pen is 15 cm, how much longer is the pen?", options: ["2 cm", "3 cm", "5 cm", "27 cm"], answer: "3 cm", hint: "Find the difference between 15 and 12." },
+            { id: 43, topic: "Time", q: "How many days are there in one full week?", options: ["5 days", "7 days", "10 days", "365 days"], answer: "7 days", hint: "Monday to Sunday." },
+            { id: 44, topic: "Money", q: "What coin is worth ten pence in UK currency?", options: ["1p coin", "5p coin", "10p coin", "50p coin"], answer: "10p coin", hint: "Check the number on the coin." },
+            { id: 45, topic: "Geometry", q: "How many sides does a triangle have?", options: ["2 sides", "3 sides", "4 sides", "5 sides"], answer: "3 sides", hint: "Tri means three." },
+            { id: 46, topic: "Geometry", q: "Which 2D shape has 4 equal straight sides and 4 square corners?", options: ["Rectangle", "Square", "Triangle", "Circle"], answer: "Square", hint: "All four sides match in length." },
+            { id: 47, topic: "Geometry", q: "What is the name of a 3D shape that looks like a soup can?", options: ["Cube", "Sphere", "Cylinder", "Pyramid"], answer: "Cylinder", hint: "Circular flat ends with a curved body." },
+            { id: 48, topic: "Geometry", q: "How many vertices (corners) does a rectangle have?", options: ["3", "4", "5", "6"], answer: "4", hint: "Count the sharp corners." },
+            { id: 49, topic: "Geometry", q: "Which shape has no straight sides?", options: ["Square", "Rectangle", "Triangle", "Circle"], answer: "Circle", hint: "It is completely round." },
+            { id: 50, topic: "Geometry", q: "If you turn a shape around, what property stays the same?", options: ["Its size and shape", "Its color", "Where it points", "Nothing"], answer: "Its size and shape", "hint": "Rotation doesn't change its dimensions." }
+        ];
+
+        // 50 Science Questions (Year 2 Foundation)
+        const scienceQuestions = [
+            { id: 1, topic: "Living Things", q: "What do all living plants and animals need to survive?", options: ["Water, food, and air", "Only television", "Plastic toys", "Candy"], answer: "Water, food, and air", hint: "Essential things for life." },
+            { id: 2, topic: "Plants", q: "Which part of a plant usually grows underground and absorbs water?", options: ["Leaves", "Flowers", "Roots", "Stem"], answer: "Roots", hint: "Anchors the plant in soil." },
+            { id: 3, topic: "Human Body", q: "Which of our five senses do we use to listen to music?", options: ["Sight", "Hearing", "Taste", "Touch"], answer: "Hearing", hint: "Uses our ears." },
+            { id: 4, topic: "Animals", q: "What do we call a baby dog?", options: ["Kitten", "Puppy", "Calf", "Chick"], answer: "Puppy", hint: "Man's best friend as a baby." },
+            { id: 5, topic: "Habitats", q: "Where do fish naturally live and breathe?", options: ["In the trees", "In water", "On dry desert sand", "In the sky"], answer: "In water", hint: "They have gills." },
+            { id: 6, topic: "Materials", q: "Which material is best for making a waterproof raincoat?", options: ["Plastic", "Paper towel", "Cotton sponge", "Woolen cloth"], answer: "Plastic", hint: "Keeps rain out." },
+            { id: 7, topic: "Materials", q: "Which everyday object is usually made of hard metal?", options: ["A balloon", "A metal spoon", "A paper napkin", "A foam pillow"], answer: "A metal spoon", hint: "Strong and rigid utensil." },
+            { id: 8, topic: "Forces", q: "When you open a heavy door by pulling it towards you, what force are you using?", options: ["A push", "A pull", "Magnetism", "Gravity only"], answer: "A pull", hint: "Bringing something closer." },
+            { id: 9, topic: "Forces", q: "When you kick a football across the grass, what force do you apply?", options: ["A push", "A pull", "Freezing", "Melting"], answer: "A push", hint: "Moving something away from you." },
+            { id: 10, topic: "Seasons", q: "During which season do leaves usually change color and fall off trees?", options: ["Summer", "Autumn (Fall)", "Spring", "Winter midnight"], answer: "Autumn (Fall)", hint: "The cooler season before winter." },
+            { id: 11, topic: "Light & Dark", q: "What is the primary natural source of light for our planet Earth?", options: ["The Moon", "The Sun", "A flashlight", "A candle"], answer: "The Sun", hint: "The star at the center of our solar system." },
+            { id: 12, topic: "Living Things", q: "What is the life cycle stage of a butterfly before it becomes a butterfly?", options: ["Caterpillar (Larva)", "A puppy", "A tadpole", "A seed"], answer: "Caterpillar (Larva)", hint: "Crawling creature that eats leaves." },
+            { id: 13, topic: "Human Body", q: "Which organ inside our chest pumps blood all around our body?", options: ["The brain", "The heart", "The stomach", "The lungs"], answer: "The heart", hint: "Beats rhythmically." },
+            { id: 14, topic: "Human Body", q: "Which part of our body do we use to think, learn, and remember?", options: ["The brain", "The knee", "The elbow", "The foot"], answer: "The brain", hint: "Command center in our head." },
+            { id: 15, topic: "Plants", q: "What green pigment in leaves helps plants capture sunlight?", options: ["Chlorophyll", "Red paint", "Water droplets", "Soil dust"], answer: "Chlorophyll", hint: "Makes leaves green." },
+            { id: 16, topic: "Weather", q: "What instrument is used to measure how hot or cold the air is?", options: ["A ruler", "A thermometer", "A clock", "A scale"], answer: "A thermometer", hint: "Shows temperature." },
+            { id: 17, topic: "Materials", q: "Which of these materials is magnetic and will stick to a magnet?", options: ["Iron nail", "Wooden toothpick", "Plastic LEGO brick", "Glass marble"], answer: "Iron nail", hint: "Metal object." },
+            { id: 18, topic: "Animals", q: "Which animal is a mammal that can fly?", options: ["A bat", "An ostrich", "A crocodile", "A shark"], answer: "A bat", hint: "Flying nocturnal mammal." },
+            { id: 19, topic: "Habitats", q: "What do we call a hot, dry place with very little rain and lots of sand?", options: ["A desert", "An ocean", "A rainforest", "An icy glacier"], answer: "A desert", hint: "Camels live here." },
+            { id: 20, topic: "Sound", q: "How are sounds made in the physical world?", options: ["By vibrations", "By complete silence", "By freezing water", "By dark shadows"], answer: "By vibrations", "hint": "Back and forth shaking motion." },
+            { id: 21, topic: "Human Body", q: "Which of the five senses do we use to enjoy the smell of fresh flowers?", options: ["Smell (Nose)", "Sight (Eyes)", "Hearing (Ears)", "Touch (Skin)"], answer: "Smell (Nose)", hint: "Sniffing scents." },
+            { id: 22, topic: "Plants", q: "What do seeds need to germinate and start growing?", options: ["Water, warmth, and soil/light", "Ice and darkness only", "Plastic wrapping", "Loud music"], answer: "Water, warmth, and soil/light", hint: "Nurturing conditions." },
+            { id: 23, topic: "Earth & Space", q: "What shape is planet Earth approximately?", options: ["A flat pancake", "A sphere (round ball)", "A triangle", "A cube"], answer: "A sphere (round ball)", hint: "Globular planet." },
+            { id: 24, topic: "Materials", q: "Which material is transparent (lets light pass through so you can see through it)?", options: ["Clear glass window", "Solid wooden door", "Brick wall", "Cardboard box"], answer: "Clear glass window", hint: "Windows let you see outside." },
+            { id: 25, topic: "Animals", q: "Which group of animals has feathers and wings?", options: ["Birds", "Fish", "Reptiles", "Amphibians"], answer: "Birds", hint: "Can fly or chirp." },
+            { id: 26, topic: "Forces", q: "What natural force pulls objects down towards the ground?", options: ["Gravity", "Wind power", "Electricity", "Magnetism"], answer: "Gravity", hint: "Keeps our feet on the floor." },
+            { id: 27, topic: "Health", q: "Why is washing our hands with soap important?", options: ["To remove germs and dirt", "To paint them", "To make them heavy", "To freeze them"], answer: "To remove germs and dirt", "hint": "Staying clean and healthy." },
+            { id: 28, topic: "Habitats", q: "Where do frogs usually lay their eggs (spawn)?", options: ["In ponds or shallow water", "In dry tree branches", "On high mountain peaks", "In underground caves"], answer: "In ponds or shallow water", "hint": "Amphibian nursery." },
+            { id: 29, topic: "Seasons", q: "Which season is usually the coldest with snow in many countries?", options: ["Winter", "Summer", "Spring", "Autumn"], answer: "Winter", hint: "Bundle up in heavy coats." },
+            { id: 30, topic: "Materials", q: "If you heat an ice cube, what does it turn into?", options: ["Liquid water", "Solid rock", "Wood", "Metal"], answer: "Liquid water", hint: "Melting process." },
+            { id: 31, topic: "Human Body", q: "How many teeth do typical adult humans have?", options: ["32 teeth", "2 teeth", "100 teeth", "10 teeth"], answer: "32 teeth", hint: "Full adult set." },
+            { id: 32, topic: "Animals", q: "Which animal is known as the tallest land animal with a very long neck?", options: ["Giraffe", "Elephant", "Mouse", "Frog"], answer: "Giraffe", hint: "Reaches high tree tops." },
+            { id: 33, topic: "Light & Dark", q: "What is created when an opaque object blocks light?", options: ["A shadow", "A rainbow", "A sound wave", "A breeze"], answer: "A shadow", hint: "Dark silhouette." },
+            { id: 34, topic: "Plants", q: "What do flowers use bright colors and sweet smells to attract?", options: ["Pollinators like bees and butterflies", "Rocks", "Heavy rain", "Dark clouds"], answer: "Pollinators like bees and butterflies", "hint": "Insects that help plants." },
+            { id: 35, topic: "Materials", q: "Which property describes a material that breaks easily when dropped?", options: ["Brittle", "Stretchy", "Flexible", "Magnetic"], answer: "Brittle", hint: "Like glass or ceramic." },
+            { id: 36, topic: "Weather", q: "What falls from clouds when it rains?", options: ["Water droplets", "Solid gold coins", "Cotton balls", "Feathers"], answer: "Water droplets", "hint": "Liquid precipitation." },
+            { id: 37, topic: "Animals", q: "Which animal lives part of its life in water as a tadpole and part on land as an adult?", options: ["Frog", "Cat", "Dog", "Eagle"], answer: "Frog", hint: "Amphibian life cycle." },
+            { id: 38, topic: "Health", q: "Which of these foods is considered very healthy and nutritious?", options: ["Fresh apples and broccoli", "Only sugary soda", "Plain ice", "Cardboard"], answer: "Fresh apples and broccoli", "hint": "Fruits and vegetables." },
+            { id: 39, topic: "Forces", q: "What happens when two magnets with the same poles (e.g., North and North) are pushed together?", options: ["They repel (push apart)", "They stick together instantly", "They melt", "They turn into sound"], answer: "They repel (push apart)", "hint": "Like poles push away." },
+            { id: 40, topic: "Earth", q: "What is the name of our galaxy?", options: ["The Milky Way", "Candy Land", "The Big Dipper", "Solar Star"], answer: "The Milky Way", "hint": "Our cosmic home." },
+            { id: 41, topic: "Human Body", q: "Which part of our body do we use for the sense of touch?", options: ["Skin / Hands", "Eyes", "Ears", "Nose"], answer: "Skin / Hands", hint: "Feeling textures." },
+            { id: 42, topic: "Plants", q: "What do plants release into the air that humans need to breathe?", options: ["Oxygen", "Smoke", "Carbon dioxide only", "Dust"], answer: "Oxygen", "hint": "Fresh air produced by leaves." },
+            { id: 43, topic: "Animals", q: "What is a group of lions called?", options: ["A pride", "A flock", "A school", "A swarm"], answer: "A pride", "hint": "Family group of big cats." },
+            { id: 44, topic: "Materials", q: "Which material is stretchy and elastic?", options: ["Rubber band", "Iron bar", "Glass cup", "Brick"], answer: "Rubber band", "hint": "Can be pulled and spring back." },
+            { id: 45, topic: "Weather", q: "What causes wind in our atmosphere?", options: ["Moving air", "Sleeping clouds", "Static rocks", "Stationary water"], answer: "Moving air", "hint": "Breezes blowing." },
+            { id: 46, topic: "Habitats", q: "Where do polar bears naturally live?", options: ["In the cold Arctic regions", "In the hot African desert", "In a tropical jungle", "In a volcano"], answer: "In the cold Arctic regions", "hint": "Snow and ice habitat." },
+            { id: 47, topic: "Human Body", q: "Which bones protect our brain inside our head?", options: ["The skull", "The ribs", "The spine", "The fingers"], answer: "The skull", "hint": "Hard helmet of bone." },
+            { id: 48, topic: "Science Inquiry", q: "What should a scientist do to find out if plant A grows faster with more water than plant B?", options: ["Conduct a fair test / experiment", "Guess without looking", "Ignore the plants", "Throw them away"], answer: "Conduct a fair test / experiment", "hint": "Testing hypotheses." },
+            { id: 49, topic: "Animals", q: "Which animal is a nocturnal creature (active at night)?", options: ["Owl", "Rooster", "Butterfly", "Cow"], answer: "Owl", "hint": "Hunts mice in the dark." },
+            { id: 50, topic: "Energy", q: "What do we use batteries for in everyday electrical devices?", options: ["To supply electrical energy", "To keep them cold", "To paint them", "To weigh them"], answer: "To supply electrical energy", "hint": "Portable power source." }
+        ];
+
+        // 50 English Questions (Year 2 Foundation)
+        const englishQuestions = [
+            { id: 1, topic: "Phonics & Spelling", q: "Choose the word that rhymes with 'cat':", options: ["bat", "dog", "sun", "pen"], answer: "bat", hint: "Ends with the '-at' sound." },
+            { id: 2, topic: "Grammar", q: "What is a 'noun'?", options: ["A naming word (person, place, thing)", "An action word", "A describing word", "A joining word"], answer: "A naming word (person, place, thing)", "hint": "Names things like 'dog' or 'school'." },
+            { id: 3, topic: "Grammar", q: "Identify the verb (doing word) in this sentence: 'The monkey climbed the tree.'", options: ["climbed", "monkey", "tree", "The"], answer: "climbed", hint: "What action did the monkey do?" },
+            { id: 4, topic: "Punctuation", q: "What punctuation mark must go at the very end of a telling sentence?", options: ["Full stop (.)", "Question mark (?)", "Exclamation mark (!)", "Comma (,)"], answer: "Full stop (.)", "hint": "Stops the sentence." },
+            { id: 5, topic: "Punctuation", q: "What punctuation mark is used when asking a direct question like 'Where is my hat'?", options: ["Question mark (?)", "Full stop (.)", "Apostrophe (')", "Hyphen (-)"], answer: "Question mark (?)", "hint": "Used for inquiries." },
+            { id: 6, topic: "Spelling", q: "Which of these words is spelled correctly?", options: ["because", "becus", "becuz", "bicoz"], answer: "because", "hint": "Big elephants can always understand small elephants." },
+            { id: 7, topic: "Grammar", q: "What is an adjective?", options: ["A describing word (e.g., 'red', 'tall')", "A naming word", "A doing word", "A number"], answer: "A describing word (e.g., 'red', 'tall')", "hint": "Describes nouns." },
+            { id: 8, topic: "Vocabulary", q: "What is a synonym (word with a similar meaning) for 'happy'?", options: ["Joyful / Glad", "Sad", "Angry", "Tired"], answer: "Joyful / Glad", "hint": "Feeling cheerful." },
+            { id: 9, topic: "Grammar", q: "Choose the correct capital letter for the start of a sentence: 'the sun is shining.'", options: ["The sun is shining.", "the sun is shining.", "THE SUN IS SHINING.", "tHe sUn is shining."], answer: "The sun is shining.", "hint": "First letter must be capitalized." },
+            { id: 10, topic: "Plurals", q: "What is the plural of 'cat'?", options: ["cats", "cates", "catz", "caties"], answer: "cats", "hint": "Add an 's' at the end." },
+            { id: 11, topic: "Plurals", q: "What is the plural of 'fox'?", options: ["foxes", "foxs", "foxies", "foxen"], answer: "foxes", "hint": "Add 'es' after 'x'." },
+            { id: 12, topic: "Spelling", q: "Complete the spelling: 'fr__nd' (friend)", options: ["ie", "ei", "ea", "oo"], answer: "ie", "hint": "I before E except after C." },
+            { id: 13, topic: "Grammar", q: "Which word is a pronoun replacing a boy's name?", options: ["He", "She", "It", "They"], answer: "He", "hint": "Pronoun for males." },
+            { id: 14, topic: "Grammar", q: "Which word is a pronoun replacing a girl's name?", options: ["She", "He", "It", "Them"], answer: "She", "hint": "Pronoun for females." },
+            { id: 15, topic: "Reading Comprehension", q: "Read: 'Tim had a red balloon. It popped with a loud bang.' Why did the balloon make a noise?", options: ["It popped", "It flew away", "It was blue", "It was heavy"], answer: "It popped", "hint": "Read the second sentence." },
+            { id: 16, topic: "Vocabulary", q: "What is the opposite (antonym) of 'hot'?", options: ["Cold", "Warm", "Bright", "Fast"], answer: "Cold", "hint": "Ice is..." },
+            { id: 17, topic: "Vocabulary", q: "What is the opposite of 'big'?", options: ["Small / Little", "Tall", "Heavy", "Wide"], answer: "Small / Little", "hint": "Tiny in size." },
+            { id: 18, topic: "Grammar", q: "Identify the adjective in: 'The fluffy rabbit hopped.'", options: ["fluffy", "rabbit", "hopped", "The"], answer: "fluffy", "hint": "Describes the rabbit's fur." },
+            { id: 19, topic: "Grammar", q: "Identify the verb in: 'The children played in the park.'", options: ["played", "children", "park", "The"], answer: "played", "hint": "What did the children do?" },
+            { id: 20, topic: "Apostrophes", q: "What does the contraction 'don't' stand for?", options: ["do not", "does not", "did not", "doing it"], answer: "do not", "hint": "Shortened form of 'do not'." },
+            { id: 21, topic: "Apostrophes", q: "What does the contraction 'I'm' stand for?", options: ["I am", "I will", "I have", "I do"], answer: "I am", "hint": "Shortened form of 'I am'." },
+            { id: 22, topic: "Spelling", q: "Which word means more than one 'baby'?", options: ["babies", "babys", "babyies", "babs"], answer: "babies", "hint": "Change 'y' to 'ies'." },
+            { id: 23, topic: "Prefixes", q: "What does adding the prefix 'un-' to 'happy' (unhappy) do?", options: ["Changes it to the opposite meaning", "Makes it plural", "Makes it past tense", "Changes it to a color"], answer: "Changes it to the opposite meaning", "hint": "Not happy." },
+            { id: 24, topic: "Suffixes", q: "What does adding '-ing' to 'jump' (jumping) mean?", options: ["Action happening right now", "Happened yesterday", "Means many jumps", "Means no jump"], answer: "Action happening right now", "hint": "Continuous action." },
+            { id: 25, topic: "Suffixes", q: "What does adding '-ed' to 'walk' (walked) mean?", options: ["Past tense (happened in the past)", "Happening now", "Future tense", "Not walking"], answer: "Past tense (happened in the past)", "hint": "Already finished." },
+            { id: 26, topic: "Reading Comprehension", q: "Read: 'Sara baked a chocolate cake with pink icing.' What flavor was the cake?", options: ["Chocolate", "Vanilla", "Strawberry", "Lemon"], answer: "Chocolate", "hint": "Check the ingredients mentioned." },
+            { id: 27, topic: "Rhyming", q: "Which word rhymes with 'star'?", options: ["car", "sun", "moon", "tree"], answer: "car", "hint": "Ends in '-ar'." },
+            { id: 28, topic: "Grammar", q: "Choose the correct article: '__ apple a day keeps the doctor away.'", options: ["An", "A", "The", "To"], answer: "An", "hint": "Used before vowel sounds ('a', 'e', 'i', 'o', 'u')." },
+            { id: 29, topic: "Grammar", q: "Choose the correct article: '__ big dog barked.'", options: ["A", "An", "And", "To"], answer: "A", "hint": "Used before consonant sounds." },
+            { id: 30, topic: "Spelling", q: "Select the correctly spelled word for the number 8:", options: ["eight", "ate", "ait", "aeight"], answer: "eight", "hint": "Starts with 'e'." },
+            { id: 31, topic: "Spelling", q: "Select the correctly spelled word for the color:", options: ["yellow", "yelow", "yelloh", "ialow"], answer: "yellow", "hint": "Double 'l'." },
+            { id: 32, topic: "Grammar", q: "Which word joins two sentences together? 'I like apples ___ I like bananas.'", options: ["and", "because", "but", "so"], answer: "and", "hint": "Connecting word." },
+            { id: 33, topic: "Grammar", q: "Choose the correct conjunction: 'I wanted to go outside, ___ it was raining.'", options: ["but", "and", "then", "or"], answer: "but", "hint": "Shows a contrast." },
+            { id: 34, topic: "Punctuation", q: "Where should a capital letter be used?", options: ["At the start of sentences and for proper nouns (names)", "Only at the very end", "In the middle of every word", "Never"], answer: "At the start of sentences and for proper nouns (names)", "hint": "Rule for uppercase letters." },
+            { id: 35, topic: "Vocabulary", q: "What does the word 'tiny' mean?", options: ["Very small", "Very big", "Very loud", "Very bright"], answer: "Very small", "hint": "Microscopic or miniature." },
+            { id: 36, topic: "Reading Comprehension", q: "Read: 'Max the dog buried his bone under the old oak tree.' What did Max bury?", options: ["His bone", "His toy", "His bowl", "His collar"], answer: "His bone", "hint": "What was under the tree?" },
+            { id: 37, topic: "Grammar", q: "Which of these is a proper noun (specific name of a person or place)?", options: ["London", "city", "boy", "dog"], answer: "London", "hint": "Name of a city with a capital L." },
+            { id: 38, topic: "Spelling", q: "Spell the word for the animal that says 'meow':", options: ["cat", "kat", "catt", "caet"], answer: "cat", "hint": "C-A-T." },
+            { id: 39, topic: "Spelling", q: "Spell the word for the animal that barks:", options: ["dog", "dawg", "dogg", "dug"], answer: "dog", "hint": "D-O-G." },
+            { id: 40, topic: "Grammar", q: "What punctuation mark shows ownership (e.g., 'the dog's bone')?", options: ["Apostrophe (')", "Comma (,)", "Full stop (.)", "Question mark (?)"], answer: "Apostrophe (')", "hint": "Shows who owns something." },
+            { id: 41, topic: "Vocabulary", q: "What is a synonym for 'fast'?", options: ["Quick / Rapid", "Slow", "Heavy", "Sleepy"], answer: "Quick / Rapid", "hint": "Moving at high speed." },
+            { id: 42, topic: "Vocabulary", q: "What is an antonym for 'noisy'?", options: ["Quiet / Silent", "Loud", "Busy", "Bright"], answer: "Quiet / Silent", "hint": "Making no sound." },
+            { id: 43, topic: "Grammar", q: "Identify the preposition (position word) in: 'The cat slept under the bed.'", options: ["under", "cat", "slept", "bed"], answer: "under", "hint": "Where was the cat?" },
+            { id: 44, topic: "Reading Comprehension", q: "Read: 'Lily wore her yellow raincoat because it was pouring with rain.' Why did Lily wear a raincoat?", options: ["It was raining", "It was sunny", "She was going to bed", "She was swimming"], answer: "It was raining", "hint": "Check the reason given." },
+            { id: 45, topic: "Spelling", q: "Choose the correct spelling of the number after nine:", options: ["ten", "teln", "taen", "tin"], answer: "ten", "hint": "T-E-N." },
+            { id: 46, topic: "Grammar", q: "Which word is a conjunction of choice?", options: ["or", "and", "because", "the"], answer: "or", "hint": "Would you like tea *or* coffee?" },
+            { id: 47, topic: "Spelling", q: "Complete the word: 'sch___l' (school)", options: ["oo", "ou", "ee", "ai"], answer: "oo", "hint": "S-C-H-O-O-L." },
+            { id: 48, topic: "Grammar", q: "Which sentence is written correctly with punctuation?", options: ["The cat sat on the mat.", "the cat sat on the mat", "The cat sat on the mat", "The cat sat on the mat?"], answer: "The cat sat on the mat.", "hint": "Needs a capital letter and full stop." },
+            { id: 49, topic: "Vocabulary", q: "What does 'gigantic' mean?", options: ["Extremely large", "Very tiny", "Soft", "Cold"], answer: "Extremely large", "hint": "Massive size." },
+            { id: 50, topic: "Reading Comprehension", q: "Read: 'Tom read three adventure books during the summer holidays.' How many books did Tom read?", options: ["Three", "One", "Ten", "Zero"], answer: "Three", "hint": "Check the number in the sentence." }
+        ];
+
+        // Render questions into their respective tab containers
+        function renderTab(tabKey, data) {
+            const container = document.getElementById(`tab-content-${tabKey}`);
+            let html = '';
+
+            data.forEach((item, index) => {
+                html += `
+                    <div id="q-card-${tabKey}-${item.id}" class="question-card bg-white rounded-2xl shadow-md p-6 border-2 border-slate-100 transition-all hover:shadow-lg">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full">Question ${item.id} of 50</span>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md">${item.topic}</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-4">${item.id}. ${item.q}</h3>
+                        
+                        <!-- Options Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4" id="options-${tabKey}-${item.id}">
+                `;
+
+                item.options.forEach((opt, optIdx) => {
+                    html += `
+                        <label class="option-label flex items-center gap-3 p-3.5 rounded-xl border-2 border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 cursor-pointer transition">
+                            <input type="radio" name="question-${tabKey}-${item.id}" value="${opt}" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500" onchange="updateProgress('${tabKey}')">
+                            <span class="font-medium text-slate-700 text-sm md:text-base">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                html += `
+                        </div>
+                        <!-- Feedback and Hint bar -->
+                        <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleHint('${tabKey}', ${item.id})" class="no-print text-xs font-bold text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg transition flex items-center gap-1">
+                                    💡 Need a Hint?
+                                </button>
+                                <span id="hint-${tabKey}-${item.id}" class="hidden text-xs text-amber-700 italic bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">
+                                    ${item.hint}
+                                </span>
+                            </div>
+                            <div id="feedback-${tabKey}-${item.id}" class="text-sm font-bold"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Switch between tabs
+        function switchTab(tabKey) {
+            currentActiveTab = tabKey;
+
+            // Update tab button styles
+            ['math', 'science', 'english'].forEach(t => {
+                const btn = document.getElementById(`tab-btn-${t}`);
+                const content = document.getElementById(`tab-content-${t}`);
+                if (t === tabKey) {
+                    btn.className = "tab-btn flex-1 min-w-[140px] py-3 px-6 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "tab-btn flex-1 min-w-[140px] py-3 px-6 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200";
+                    content.classList.add('hidden');
+                }
+            });
+
+            // Update dashboard titles & progress
+            const titles = { math: "Mathematics Dashboard", science: "Science Dashboard", english: "English Dashboard" };
+            document.getElementById('active-tab-title').innerText = titles[tabKey];
+            updateProgress(tabKey);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleHint(tabKey, id) {
+            const hintEl = document.getElementById(`hint-${tabKey}-${id}`);
+            hintEl.classList.toggle('hidden');
+        }
+
+        function updateProgress(tabKey) {
+            if (tabKey !== currentActiveTab) return;
+            const data = tabKey === 'math' ? mathQuestions : (tabKey === 'science' ? scienceQuestions : englishQuestions);
+            let answeredCount = 0;
+
+            data.forEach(item => {
+                const radios = document.getElementsByName(`question-${tabKey}-${item.id}`);
+                for (let r of radios) {
+                    if (r.checked) {
+                        answeredCount++;
+                        break;
+                    }
+                }
+            });
+
+            const percent = (answeredCount / 50) * 100;
+            document.getElementById('progress-bar').style.width = percent + '%';
+            document.getElementById('score-display').innerText = `${answeredCount} / 50 Answered`;
+        }
+
+        function gradeActiveTab() {
+            const tabKey = currentActiveTab;
+            const data = tabKey === 'math' ? mathQuestions : (tabKey === 'science' ? scienceQuestions : englishQuestions);
+            let correctCount = 0;
+
+            data.forEach(item => {
+                const radios = document.getElementsByName(`question-${tabKey}-${item.id}`);
+                let userSelection = null;
+                for (let r of radios) {
+                    if (r.checked) {
+                        userSelection = r.value;
+                        break;
+                    }
+                }
+
+                const card = document.getElementById(`q-card-${tabKey}-${item.id}`);
+                const feedback = document.getElementById(`feedback-${tabKey}-${item.id}`);
+
+                card.classList.remove('border-indigo-400', 'border-rose-400', 'bg-indigo-50/20', 'bg-rose-50/20');
+
+                if (userSelection === null) {
+                    feedback.innerHTML = `<span class="text-slate-400">⚠️ Unanswered</span>`;
+                } else if (userSelection === item.answer) {
+                    correctCount++;
+                    card.classList.add('border-indigo-400', 'bg-indigo-50/20');
+                    feedback.innerHTML = `<span class="text-indigo-600 flex items-center gap-1">✅ Correct! Great job!</span>`;
+                } else {
+                    card.classList.add('border-rose-400', 'bg-rose-50/20');
+                    feedback.innerHTML = `<span class="text-rose-600 flex items-center gap-1">❌ Incorrect (Correct: ${item.answer})</span>`;
+                }
+            });
+
+            document.getElementById('score-display').innerText = `${correctCount} / 50 Correct`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetCurrentTab() {
+            const tabKey = currentActiveTab;
+            const data = tabKey === 'math' ? mathQuestions : (tabKey === 'science' ? scienceQuestions : englishQuestions);
+            
+            data.forEach(item => {
+                const radios = document.getElementsByName(`question-${tabKey}-${item.id}`);
+                radios.forEach(r => r.checked = false);
+
+                const card = document.getElementById(`q-card-${tabKey}-${item.id}`);
+                card.classList.remove('border-indigo-400', 'border-rose-400', 'bg-indigo-50/20', 'bg-rose-50/20');
+                document.getElementById(`feedback-${tabKey}-${item.id}`).innerHTML = '';
+                document.getElementById(`hint-${tabKey}-${item.id}`).classList.add('hidden');
+            });
+
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('score-display').innerText = '0 / 50';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize all tabs on window load
+        window.onload = function() {
+            renderTab('math', mathQuestions);
+            renderTab('science', scienceQuestions);
+            renderTab('english', englishQuestions);
+            updateProgress('math');
+        }
+    </script>
+</body>
+</html>
